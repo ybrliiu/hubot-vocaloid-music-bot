@@ -15,19 +15,24 @@ async function fetchMoviesURL(): Promise<string> {
   const urls =
     await Axios.get('http://cobachican.hatenadiary.jp/')
       .then(response => {
-        const dom = new JSDOM(response.data);
-        const out = dom.window.document.getElementsByTagName('iframe');
-        if ( out !== null ) {
-          const item = out.item(1);
-          if ( item !== null ) {
-            const src = item.getAttribute('src');
+        const dom      = new JSDOM(response.data);
+        const articles = dom.window.document.querySelectorAll('article');
+        if ( articles !== null ) {
+          const iframes = articles.item(0).querySelectorAll('iframe');
+          return Array.prototype.map.apply(iframes, [(iframe: HTMLElement) => {
+            const src = iframe.getAttribute('src');
             if ( src !== null ) {
               const splited = src.split('/');
               return 'https://www.nicovideo.jp/watch/' + splited[ splited.length - 1 ];
             }
-          }
+            else {
+              return 'parse error ocured.';
+            }
+          }]).join("\n");
         }
-        return 'nothing...';
+        else {
+          return 'There are no articles.'
+        }
       })
       .catch(error => { return error });
 
