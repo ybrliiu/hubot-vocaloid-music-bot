@@ -18,13 +18,15 @@
     "hubot-rules": "^1.0.0",
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.1",
-    "hubot-slack": "^4.6.0"
+    "hubot-slack": "^4.6.0",
+    "jsdom": "^14.0.0"
   },
   "engines": {
     "node": "8.11.x"
   },
   "devDependencies": {
     "@types/hubot": "^2.19.4",
+    "@types/jsdom": "^12.2.3",
     "@types/node": "^11.13.4",
     "typescript": "^3.4.3"
   },
