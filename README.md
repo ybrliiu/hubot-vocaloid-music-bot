@@ -12,6 +12,31 @@ available, etc!
 [hubot]: http://hubot.github.com
 [generator-hubot]: https://github.com/github/generator-hubot
 
+### Running hubot-vocaloid-music-bot on VPS
+
+#### Upstart 
+
+SEE ALSO : https://heartbeats.jp/hbblog/2013/02/upstart-daemon.html
+
+``` /etc/init/hubot-vocaloid-music-bot.conf
+description "hubot-vocaloid-music-bot"
+author "???"
+
+start on runlevel 5
+stop on runlevel 6
+
+respawn
+chdir /home/${USER}/services/hubot-vocaloid-music-bot
+exec `su ${USER} -c 'export PATH="$HOME/.nodenv/bin:$PATH"; eval "$(nodenv init -)"; HUBOT_DISCORD_TOKEN=${DISCORD_TOKEN} ./bin/hubot -a discord' >> /var/log/hubot-vocaloid-music-bot.log 2>&1`
+```
+
+
+```
+$ sudo initctl start hubot-vocaloid-music-bot # start upstart service
+$ sudo initctl list | grep "hubot"            # confirm daemon
+$ cat /etc/init/hubot-vocaloid-music-bot.conf # error log
+```
+
 ### Running hubot-vocaloid-music-bot Locally
 
 You can test your hubot by running the following, however some plugins will not
