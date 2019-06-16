@@ -1,8 +1,20 @@
 import { Robot, Response } from 'hubot';
 import Axios from 'axios';
 import { JSDOM } from 'jsdom';
+import * as cron from 'node-cron';
+
+declare module 'hubot' {
+  interface Robot<A> {
+    send(...strings: string[]): void;
+  }
+}
 
 module.exports = (robot: Robot<any>) => {
+
+  cron.schedule('* * * * *', () => {
+    robot.send('てすと');
+  });
+
   robot.hear(/ボカヒト日報見て/, (response: Response<Robot<any>>) => {
     fetchMoviesURL()
       .then(urls => {
