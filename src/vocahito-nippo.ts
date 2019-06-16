@@ -1,13 +1,17 @@
-import { Robot, Response } from 'hubot';
+import { Robot } from 'hubot';
 import Axios from 'axios';
 import { JSDOM } from 'jsdom';
 
+declare module 'hubot' {
+  interface Robot<A> {
+    send(...strings: string[]): void;
+  }
+}
+
 module.exports = (robot: Robot<any>) => {
-
-  robot.hear(/ボカヒト日報見て/, (response: Response<Robot<any>>) => {
-    fetchMoviesURL().then(urls => { response.send(urls) }).catch(err => { response.send(err) });
-  });
-
+  fetchMoviesURL()
+    .then(urls => { robot.send(urls) })
+    .catch(err => { robot.send(err) });
 };
 
 async function fetchMoviesURL(): Promise<string> {
