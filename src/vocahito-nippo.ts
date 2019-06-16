@@ -1,6 +1,7 @@
 import { Robot } from 'hubot';
 import Axios from 'axios';
 import { JSDOM } from 'jsdom';
+import { CronJob } from 'cron';
 
 declare module 'hubot' {
   interface Robot<A> {
@@ -9,9 +10,18 @@ declare module 'hubot' {
 }
 
 module.exports = (robot: Robot<any>) => {
-  fetchMoviesURL()
-    .then(urls => { robot.send(urls) })
-    .catch(err => { robot.send(err) });
+  new CronJob('00 32 02 * * *', () => {
+    fetchMoviesURL()
+      .then(urls => {
+        if ( urls.length === 0 ) {
+          robot.send('本日のボカロ曲はないみたいですね・・・。');
+        }
+        else {
+          robot.send(urls);
+        }
+      })
+      .catch(err => { robot.send(err) });
+  });
 };
 
 async function fetchMoviesURL(): Promise<string> {
