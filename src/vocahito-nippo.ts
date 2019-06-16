@@ -10,7 +10,7 @@ declare module 'hubot' {
 }
 
 module.exports = (robot: Robot<any>) => {
-  new CronJob('00 32 02 * * *', () => {
+  new CronJob('00 41 02 * * *', () => {
     fetchMoviesURL()
       .then(urls => {
         if ( urls.length === 0 ) {
@@ -40,7 +40,7 @@ async function fetchMoviesURL(): Promise<string> {
               return 'https://www.nicovideo.jp/watch/' + splited[ splited.length - 1 ];
             }
             else {
-              return 'parse error ocured.';
+              return 'Parse error ocured.';
             }
           }]).join("\n");
         }
