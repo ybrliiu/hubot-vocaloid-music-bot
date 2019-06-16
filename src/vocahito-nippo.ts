@@ -1,28 +1,20 @@
-import { Robot } from 'hubot';
+import { Robot, Response } from 'hubot';
 import Axios from 'axios';
 import { JSDOM } from 'jsdom';
-import { CronJob } from 'cron';
-
-declare module 'hubot' {
-  interface Robot<A> {
-    send(...strings: string[]): void;
-  }
-}
 
 module.exports = (robot: Robot<any>) => {
-  const cronJob = new CronJob('01 * * * * *', () => {
+  robot.hear(/ボカヒト日報見て/, (response: Response<Robot<any>>) => {
     fetchMoviesURL()
       .then(urls => {
         if ( urls.length === 0 ) {
-          robot.send('本日のボカロ曲はないみたいですね・・・。');
+          response.send('本日のボカロ曲はないみたいですね・・・。');
         }
         else {
-          robot.send(urls);
+          response.send(urls);
         }
       })
-      .catch(err => { robot.send(err) });
+      .catch(err => { response.send(err) });
   });
-  cronJob.start();
 };
 
 async function fetchMoviesURL(): Promise<string> {
