@@ -10,7 +10,7 @@ declare module 'hubot' {
 }
 
 module.exports = (robot: Robot<any>) => {
-  new CronJob('00 41 02 * * *', () => {
+  const cronJob = new CronJob('01 * * * * *', () => {
     fetchMoviesURL()
       .then(urls => {
         if ( urls.length === 0 ) {
@@ -22,6 +22,7 @@ module.exports = (robot: Robot<any>) => {
       })
       .catch(err => { robot.send(err) });
   });
+  cronJob.start();
 };
 
 async function fetchMoviesURL(): Promise<string> {
