@@ -37,7 +37,7 @@
     "@types/jsdom": "^12.2.3",
     "@types/node": "^11.13.4",
     "@types/node-cron": "^2.0.2",
-    "typescript": "^3.4.3"
+    "typescript": "^3.5.2"
   },
   "scripts": {
     "compile": "./node_modules/typescript/bin/tsc"
