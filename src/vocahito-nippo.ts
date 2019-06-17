@@ -30,16 +30,18 @@ declare module 'hubot' {
 module.exports = (robot: Robot<any>) => {
   const channelID = process.env.DISCORD_CHANNEL_ID;
   if ( channelID !== undefined ) {
-    cron.schedule('00 12 00 * * *', () => {
+    cron.schedule('30 09 00 * * *', () => {
+      const envelope = { room: channelID };
+      robot.send(envelope, '今日のボカヒト日報確認中・・・');
       fetchMoviesURL()
         .then(urls => {
           if ( urls.length === 0 ) {
-            robot.send({ room: channelID }, '本日のボカロ曲はないみたいですね・・・。');
+            robot.send(envelope, '本日のボカロ曲はないみたいですね・・・。');
           } else {
-            robot.send({ room: channelID }, urls);
+            robot.send(envelope, urls);
           }
         })
-        .catch(err => { robot.send({ room: channelID }, err) });
+        .catch(err => { robot.send(envelope, err) });
     });
   } else {
     robot.logger.error('環境変数 DISCORD_CHANNEL_ID が設定されていないので、botを動作させられません.');
