@@ -27,14 +27,14 @@ stop on runlevel 6
 
 respawn
 chdir /home/${USER}/services/hubot-vocaloid-music-bot
-exec `su ${USER} -c 'export PATH="$HOME/.nodenv/bin:$PATH"; eval "$(nodenv init -)"; HUBOT_DISCORD_TOKEN=${DISCORD_TOKEN} ./bin/hubot -a discord' >> /var/log/hubot-vocaloid-music-bot.log 2>&1`
+exec `su ${USER} -c 'export PATH="$HOME/.nodenv/bin:$PATH"; eval "$(nodenv init -)"; DISCORD_CHANNEL_ID=${DISCORD_CHANNEL_ID} HUBOT_DISCORD_TOKEN=${DISCORD_TOKEN} ./bin/hubot -a discord' >> /var/log/hubot-vocaloid-music-bot.log 2>&1`
 ```
 
 
 ```
-$ sudo initctl start hubot-vocaloid-music-bot # start upstart service
-$ sudo initctl list | grep "hubot"            # confirm daemon
-$ cat /etc/init/hubot-vocaloid-music-bot.conf # error log
+$ sudo initctl start hubot-vocaloid-music-bot     # start upstart service
+$ sudo initctl list | grep "hubot"                # confirm daemon
+$ tail -50f /var/log/hubot-vocaloid-music-bot.log # error log
 ```
 
 ### Running hubot-vocaloid-music-bot Locally
