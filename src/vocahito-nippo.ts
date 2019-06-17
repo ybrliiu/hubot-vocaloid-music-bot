@@ -5,14 +5,14 @@ import * as cron from 'node-cron';
 
 declare module 'hubot' {
   interface Robot<A> {
-    send(...strings: string[]): void;
+    send(envelope: { room: string }, ...strings: string[]): void;
   }
 }
 
 module.exports = (robot: Robot<any>) => {
 
   cron.schedule('* * * * *', () => {
-    robot.send('てすと');
+    robot.send({ room: 'vocaloid-music' }, 'てすと');
   });
 
   robot.hear(/ボカヒト日報見て/, (response: Response<Robot<any>>) => {
