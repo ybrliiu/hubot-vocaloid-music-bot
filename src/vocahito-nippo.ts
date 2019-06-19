@@ -30,7 +30,7 @@ declare module 'hubot' {
 module.exports = (robot: Robot<any>) => {
   const channelID = process.env.DISCORD_CHANNEL_ID;
   if ( channelID !== undefined ) {
-    cron.schedule('30 09 00 * * *', () => {
+    cron.schedule('00 30 09 * * *', () => {
       const envelope = { room: channelID };
       robot.send(envelope, '今日のボカヒト日報確認中・・・');
       fetchMoviesURL()
