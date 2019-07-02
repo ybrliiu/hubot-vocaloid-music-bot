@@ -31,7 +31,7 @@
     "node": "8.11.x"
   },
   "devDependencies": {
-    "@types/hubot": "^2.19.4",
+    "@types/hubot": "^2.19.5",
     "@types/jsdom": "^12.2.4",
     "@types/node": "^11.13.4",
     "@types/node-cron": "^2.0.2",
