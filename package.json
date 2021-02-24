@@ -24,7 +24,7 @@
     "jsdom": "^14.0.0",
     "libsodium-wrappers": "^0.7.4",
     "node-cron": "^2.0.3",
-    "opusscript": "0.0.6",
+    "opusscript": "0.0.8",
     "uws": "^9.148.0"
   },
   "engines": {
